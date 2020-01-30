@@ -1,0 +1,26 @@
+- name: install JDK
+  yum:
+    name: java-1.8.0-openjdk-devel
+    state: latest
+
+- names: get Jenkins repository
+  get_url: http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo | sudo tee /etc/yum.repos.d/jenkins.repo
+
+- rpm_key:
+    state: present
+    key: https://jenkins-ci.org/redhat/jenkins-ci.org.key
+
+- name: install jenkins
+  yum:
+    name: jenkins
+    state: present
+
+- name: Make sure Jenkins is running
+  systemd:
+    state: started
+    name: jenkins
+
+- name: Make sure Jenkins is enabled
+  systemd:
+    enabled: yes
+    name: jenkins

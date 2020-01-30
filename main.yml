@@ -1,0 +1,5 @@
+- name: install and run jenkins
+  hosts: jenkins
+  tasks:
+    -import_role: jenkins
+      name: jenkins
